@@ -1,0 +1,8 @@
+.RepeatMaskerCache
+.snakemake
+*.pdf
+*.png
+results/
+.Rproj.user
+RM*/
+data/

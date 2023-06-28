@@ -1,0 +1,13 @@
+[gene-expression]
+reference,/projectsp/genetics/ellison_lab/matt/JainLabSingleCell23/results/cellranger/cellranger_custom_ref
+expect-cells,14000
+
+[libraries]
+fastq_id,fastqs,feature_types
+6417-DJ-1-GEX_TGCAATGT-TTCGACAA,/projectsp/genetics/ellison_lab/matt/JainLabSingleCell23/data,Gene Expression
+6417-DJ-1-CMO_GTCGTAAA-AGCCTACT,/projectsp/genetics/ellison_lab/matt/JainLabSingleCell23/data,Multiplexing Capture
+
+[samples]
+sample_id,cmo_ids
+6417-DJ-1-CMO306,CMO306 
+6417-DJ-1-CMO309,CMO309

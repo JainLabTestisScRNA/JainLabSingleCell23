@@ -1,0 +1,21 @@
+from snakemake.utils import min_version
+min_version("6.0")
+
+configfile: "config/config.yaml"
+
+localrules: dfam_extract_from_dfam, dfam_collect_dfam
+
+rule all:
+    input: 
+        "results/cellranger/cellranger_custom_ref/",
+        "results/cellranger/multi/"
+
+module generic_masked_genome_plus_tes:
+    snakefile: github("mal2017/generic_masked_genome_plus_tes",path="workflow/Snakefile",commit="b02a984")
+    config: config["modules"]["generic_masked_genome_plus_tes"]
+
+
+use rule * from generic_masked_genome_plus_tes as genome_plus_tes_*
+
+
+include: "rules/cellranger.smk"
