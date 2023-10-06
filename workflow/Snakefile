@@ -8,7 +8,8 @@ localrules: dfam_extract_from_dfam, dfam_collect_dfam
 rule all:
     input: 
         "results/cellranger/cellranger_custom_ref/",
-        "results/cellranger/multi/"
+        "results/cellranger/multi/",
+        expand("results/cellranger/count/{s}/",s=config.get("ADULT_CELLRANGER_SAMPLES"))
 
 module generic_masked_genome_plus_tes:
     snakefile: github("mal2017/generic_masked_genome_plus_tes",path="workflow/Snakefile",commit="b02a984")

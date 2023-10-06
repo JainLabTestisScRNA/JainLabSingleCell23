@@ -1,5 +1,18 @@
 CELLRANGER_PATH: /cache/home/mal456/bin/cellranger-7.0.1/ # path to cellranger dir (dont include the binary itself)
 
+# for cellranger multi, which uses a weird toml-like csv config
+JUVENILE_CELLRANGER_MULTI_CSV: config/cellranger_config.csv
+JUVENILE_CELLRANGER_FQS: ["data/6417-DJ-1-CMO_GTCGTAAA-AGCCTACT_S2_R1_001.fastq.gz", "data/6417-DJ-1-CMO_GTCGTAAA-AGCCTACT_S2_R2_001.fastq.gz", "data/6417-DJ-1-GEX_TGCAATGT-TTCGACAA_S1_R1_001.fastq.gz", "data/6417-DJ-1-GEX_TGCAATGT-TTCGACAA_S1_R2_001.fastq.gz"]
+
+# for cellranger count, which uses an even more inflexible file-name based scheme
+ADULT_CELLRANGER_FQ_DIR: /projectsp/f_cee53_1/ellison_lab/matt/JainLabSingleCell23/data
+ADULT_CELLRANGER_SAMPLES:
+  adult1: 8721-DJ-1-GEX_ACCAGACAAC-CCTAGTTCCT
+  adult2: 8721-DJ-2-GEX_GAGAGGATAT-CCCATTTCAA
+  adult3: 8721-DJ-3-GEX_ATGACGTCGC-ATCCTGACCT
+  adult4: 8721-DJ-4-GEX_CCCGTTCTCG-CCAATCCGTC
+
+
 # configuration for each snakemake module used
 modules:
   generic_masked_genome_plus_tes:

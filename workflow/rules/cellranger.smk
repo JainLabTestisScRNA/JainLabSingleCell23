@@ -20,15 +20,13 @@ rule cellranger_mkref:
     {params.cellranger_path}/cellranger mkref --genome=cellranger_custom_ref --fasta=../../{input.fasta} --genes=../../{input.gtf} --nthreads={threads} --memgb={params.mem}
     """
 
-FQS = ["data/6417-DJ-1-CMO_GTCGTAAA-AGCCTACT_S2_R1_001.fastq.gz", "data/6417-DJ-1-CMO_GTCGTAAA-AGCCTACT_S2_R2_001.fastq.gz", "data/6417-DJ-1-GEX_TGCAATGT-TTCGACAA_S1_R1_001.fastq.gz", "data/6417-DJ-1-GEX_TGCAATGT-TTCGACAA_S1_R2_001.fastq.gz"]
-
 rule cellranger_multi:
     """
     This moves directories, so ensure that the config uses absolute paths.
     """
     input:
         idx = rules.cellranger_mkref.output,
-        fqs = FQS,
+        fqs = config.get("JUVENILE_CELLRANGER_FQS"),
         csv = "config/cellranger_config.csv"
     output:
         directory("results/cellranger/multi/")
@@ -45,4 +43,30 @@ rule cellranger_multi:
         """
         cd results/cellranger &&
         {params.cellranger_path}/cellranger multi --id=multi --csv ../../{input.csv} --localcores={threads} --localmem={params.mem} --disable-ui --jobmode local 
+        """
+
+rule cellranger_count:
+    """
+    This moves directories, so ensure that the config uses absolute paths.
+    """
+    input:
+        idx = rules.cellranger_mkref.output,
+        fqdir = config.get("ADULT_CELLRANGER_FQ_DIR"),
+    output:
+        directory("results/cellranger/count/{sample}/")
+    threads:
+        48
+    params:
+        cellranger_path = config.get("CELLRANGER_PATH"),
+        mem = 128,
+        sample_fq_prefix = lambda wc: config.get("ADULT_CELLRANGER_SAMPLES").get(wc.sample),
+    resources:
+        time="18:00:00",
+        mem=128000,
+        cpus=48,
+    shell:
+        """
+        mkdir -p results/cellranger/count/ &&
+        cd results/cellranger/count/ &&
+        {params.cellranger_path}/cellranger count --transcriptome=../../../{input.idx} --id={wildcards.sample} --fastqs={input.fqdir} --sample={params.sample_fq_prefix} --localcores={threads} --localmem={params.mem} --disable-ui --jobmode local 
         """
