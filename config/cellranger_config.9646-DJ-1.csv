@@ -1,0 +1,11 @@
+[gene-expression]
+reference,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/results/cellranger/cellranger_custom_ref
+
+[libraries]
+fastq_id,fastqs,feature_types
+9646-DJ-1-GEX,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/data,Gene Expression
+9646-DJ-1-3CMO,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/data,Multiplexing Capture
+
+[samples]
+sample_id,cmo_ids
+9646-DJ-1,CMO307|CMO308

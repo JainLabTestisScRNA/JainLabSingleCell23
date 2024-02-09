@@ -26,47 +26,47 @@ rule cellranger_multi:
     """
     input:
         idx = rules.cellranger_mkref.output,
-        fqs = config.get("JUVENILE_CELLRANGER_FQS"),
-        csv = "config/cellranger_config.csv"
+        fqs = lambda wc: config["CMO_GROUPS"].get(wc.group).get("FQS"),
+        csv = lambda wc: config["CMO_GROUPS"].get(wc.group).get("MULTI_CSV"),
     output:
-        directory("results/cellranger/multi/")
-    threads:
-        48
-    params:
-        cellranger_path = config.get("CELLRANGER_PATH"),
-        mem = 128
-    resources:
-        time="18:00:00",
-        mem=128000,
-        cpus=48,
-    shell:
-        """
-        cd results/cellranger &&
-        {params.cellranger_path}/cellranger multi --id=multi --csv ../../{input.csv} --localcores={threads} --localmem={params.mem} --disable-ui --jobmode local 
-        """
-
-rule cellranger_count:
-    """
-    This moves directories, so ensure that the config uses absolute paths.
-    """
-    input:
-        idx = rules.cellranger_mkref.output,
-        fqdir = config.get("ADULT_CELLRANGER_FQ_DIR"),
-    output:
-        directory("results/cellranger/count/{sample}/")
+        directory("results/cellranger/multi/{group}")
     threads:
         48
     params:
         cellranger_path = config.get("CELLRANGER_PATH"),
         mem = 128,
-        sample_fq_prefix = lambda wc: config.get("ADULT_CELLRANGER_SAMPLES").get(wc.sample),
     resources:
         time="18:00:00",
         mem=128000,
         cpus=48,
     shell:
         """
-        mkdir -p results/cellranger/count/ &&
-        cd results/cellranger/count/ &&
-        {params.cellranger_path}/cellranger count --transcriptome=../../../{input.idx} --id={wildcards.sample} --fastqs={input.fqdir} --sample={params.sample_fq_prefix} --localcores={threads} --localmem={params.mem} --disable-ui --jobmode local 
+        cd results/cellranger/multi &&
+        {params.cellranger_path}/cellranger multi --id={wildcards.group} --csv ../../../{input.csv} --localcores={threads} --localmem={params.mem} --disable-ui --jobmode local 
         """
+
+# rule cellranger_count:
+#     """
+#     This moves directories, so ensure that the config uses absolute paths.
+#     """
+#     input:
+#         idx = rules.cellranger_mkref.output,
+#         fqdir = config.get("ADULT_CELLRANGER_FQ_DIR"),
+#     output:
+#         directory("results/cellranger/count/{sample}/")
+#     threads:
+#         48
+#     params:
+#         cellranger_path = config.get("CELLRANGER_PATH"),
+#         mem = 128,
+#         sample_fq_prefix = lambda wc: config.get("ADULT_CELLRANGER_SAMPLES").get(wc.sample),
+#     resources:
+#         time="18:00:00",
+#         mem=128000,
+#         cpus=48,
+#     shell:
+#         """
+#         mkdir -p results/cellranger/count/ &&
+#         cd results/cellranger/count/ &&
+#         {params.cellranger_path}/cellranger count --transcriptome=../../../{input.idx} --id={wildcards.sample} --fastqs={input.fqdir} --sample={params.sample_fq_prefix} --localcores={threads} --localmem={params.mem} --disable-ui --jobmode local 
+#         """

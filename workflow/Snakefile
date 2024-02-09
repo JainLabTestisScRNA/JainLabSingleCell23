@@ -8,9 +8,9 @@ localrules: dfam_extract_from_dfam, dfam_collect_dfam
 rule all:
     input: 
         "results/cellranger/cellranger_custom_ref/",
-        "results/cellranger/multi/",
-        expand("results/cellranger/count/{s}/",s=config.get("ADULT_CELLRANGER_SAMPLES")),
-        expand("results/pseudobulk/adult/{s}.se.rds", s=config.get("ADULT_CELLRANGER_SAMPLES")),
+        expand("results/cellranger/multi/{g}",g=config.get("CMO_GROUPS")),
+        #expand("results/cellranger/count/{s}/",s=config.get("ADULT_CELLRANGER_SAMPLES")),
+        #expand("results/pseudobulk/adult/{s}.se.rds", s=config.get("ADULT_CELLRANGER_SAMPLES")),
 
 module generic_masked_genome_plus_tes:
     snakefile: github("mal2017/generic_masked_genome_plus_tes",path="workflow/Snakefile",commit="b02a984")
@@ -21,4 +21,4 @@ use rule * from generic_masked_genome_plus_tes as genome_plus_tes_*
 
 
 include: "rules/cellranger.smk"
-include: "rules/pseudobulk.smk"
+#include: "rules/pseudobulk.smk"
