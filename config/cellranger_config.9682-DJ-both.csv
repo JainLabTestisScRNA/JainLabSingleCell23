@@ -3,9 +3,12 @@ reference,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/results/
 
 [libraries]
 fastq_id,fastqs,feature_types
+9682-DJ-1-GEX,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/data,Gene Expression
+9682-DJ-1-3CMO,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/data,Multiplexing Capture
 9682-DJ-2-GEX,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/data,Gene Expression
 9682-DJ-2-3CMO,/projectsp/genetics/ellison_lab/matt/Jain/JainLabSingleCell23/data,Multiplexing Capture
 
 [samples]
 sample_id,cmo_ids
-9682-DJ-2, CMO305|CMO306
+WT,CMO305
+MUT,CMO306

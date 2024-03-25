@@ -17,15 +17,7 @@ CMO_GROUPS:
   ADULT_9682_2:
     MULTI_CSV: config/cellranger_config.9682-DJ-2.csv
     FQS: [data/9682-DJ-2-3CMO_S22_R1_001.fastq.gz, data/9682-DJ-2-3CMO_S22_R2_001.fastq.gz, data/9682-DJ-2-GEX_S23_R1_001.fastq.gz, data/9682-DJ-2-GEX_S23_R2_001.fastq.gz]
-
-# # for cellranger count, which uses an even more inflexible file-name based scheme
-# ADULT_CELLRANGER_FQ_DIR: /projectsp/f_cee53_1/ellison_lab/matt/JainLabSingleCell23/data
-# ADULT_CELLRANGER_SAMPLES:
-#   adult1: 8721-DJ-1-GEX_ACCAGACAAC-CCTAGTTCCT
-#   adult2: 8721-DJ-2-GEX_GAGAGGATAT-CCCATTTCAA
-#   adult3: 8721-DJ-3-GEX_ATGACGTCGC-ATCCTGACCT
-#   adult4: 8721-DJ-4-GEX_CCCGTTCTCG-CCAATCCGTC
-
+ 
 
 # configuration for each snakemake module used
 modules:
